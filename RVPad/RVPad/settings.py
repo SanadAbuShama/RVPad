@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'rvpad_app',
     'login_registration_app',
     'django.contrib.admin',
     'django.contrib.auth',
