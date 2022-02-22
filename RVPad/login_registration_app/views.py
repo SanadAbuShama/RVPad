@@ -5,6 +5,14 @@ from django.contrib import messages
 import bcrypt
 
 
+def profile(request):
+
+    context = {
+        'user': User.objects.get(id=request.session['userid'])
+    }
+    return render(request, 'profile.html', context)
+
+
 def index(request):
     if 'userid' in request.session:
         return redirect('/wishes')
@@ -25,13 +33,16 @@ def register(request):
         password = request.POST['password']
         pw_hash = bcrypt.hashpw(
             password.encode(), bcrypt.gensalt()).decode()
-        User.objects.create(
+        created_user = User.objects.create(
             first_name=request.POST['first_name'], last_name=request.POST['last_name'], email=request.POST['email'], password=pw_hash)
+        if 'image' in request.FILES:
+            created_user.image=request.FILES['image']
+            created_user.save()
         user = User.objects.filter(email=request.POST['email'])
         if user:
             logged_user = user[0]
             request.session['userid'] = logged_user.id
-        return redirect('/wishes')
+        return redirect('/profile')
 
 
 def login(request):
@@ -55,4 +66,3 @@ def login(request):
 def logout(request):
     request.session.clear()
     return redirect('/')
-
