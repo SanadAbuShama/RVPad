@@ -5,6 +5,13 @@ from django.contrib import messages
 import bcrypt
 
 
+def landing(request):
+    if not 'userid' in request.session:
+        return redirect('/rvpad/landing')
+    else:
+        return redirect('/rvpad/restaurants')
+
+
 def profile(request):
 
     context = {
@@ -36,7 +43,7 @@ def register(request):
         created_user = User.objects.create(
             first_name=request.POST['first_name'], last_name=request.POST['last_name'], email=request.POST['email'], password=pw_hash)
         if 'image' in request.FILES:
-            created_user.image=request.FILES['image']
+            created_user.image = request.FILES['image']
             created_user.save()
         user = User.objects.filter(email=request.POST['email'])
         if user:
