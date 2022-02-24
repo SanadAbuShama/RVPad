@@ -15,7 +15,7 @@
   <body class="bg-dark text-white-50">
     <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand text-white-50" href="/">RVPad</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -30,17 +30,31 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a
+                class="btn btn-outline-light"
+                aria-current="page"
+                href="/rvpad/restaurants/new"
+                >Add a restaurant</a
+              >
             </li>
           </ul>
           <ul class="navbar-nav mb-2 mb-lg-0">
-            <li class="my-2"><a class="btn btn-outline-light me-2 ">Profile</a></li>
-            <li class="my-2"><a class="btn btn-outline-light me-2">Logout</a></li>
+            <li class="my-2">
+              <a
+                href="/rvpad/users/{{request.session.userid}}"
+                class="btn btn-outline-light me-2"
+                >Profile</a
+              >
+            </li>
+            <li class="my-2">
+              <a href="/logout" class="btn btn-outline-light me-2">Logout</a>
+            </li>
           </ul>
           <form class="d-flex">
             <input
               class="form-control me-2"
               type="search"
+              name="search"
               placeholder="Search"
               aria-label="Search"
             />
@@ -53,62 +67,33 @@
       <div class="row mt-5 mb-5">
         <div class="col-lg-10 offset-lg-1 col-12">
           <div class="row row-cols-1 row-cols-md-3 row-cols-sm-2 g-4">
+            {%for rest in rests%}
             <div class="col">
-              <div class="card h-100 bg-secondary">
+              <div class="card bg-secondary">
                 <img
-                  src="https://images.unsplash.com/photo-1578088369622-b26f899a016e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+                  src="{{rest.image.url}}"
                   class="card-img-top"
-                  alt="..."
+                  alt="Restaurant Image"
                 />
                 <div class="card-body">
-                  <h5 class="card-title">Restaurant Name</h5>
-                  <p class="card-text">
-                    This is a longer card with supporting text below as a
-                    natural lead-in to additional content. This is a restaurant
-                    description.
-                  </p>
+                  <h5 class="card-title">{{rest.name}}</h5>
+                  <p class="card-text">{{rest.description}}</p>
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item bg-secondary text-white-50">
-                      <a href="" class="btn btn-outline-light">Details</a>
+                      <a
+                        href="/rvpad/restaurants/{{rest.id}}"
+                        class="btn btn-outline-light"
+                        >Details</a
+                      >
                     </li>
                     <li class="list-group-item bg-secondary text-white-50">
-                      Location
-                    </li>
-                    <li class="list-group-item bg-secondary text-white-50">
-                      Rating
+                      {{rest.location}}
                     </li>
                   </ul>
                 </div>
               </div>
             </div>
-            <div class="col">
-              <div class="card h-100 bg-secondary">
-                <img
-                  src="https://images.unsplash.com/photo-1578088369622-b26f899a016e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Restaurant Name</h5>
-                  <p class="card-text">
-                    This is a longer card with supporting text below as a
-                    natural lead-in to additional content. This is a restaurant
-                    description.
-                  </p>
-                  <ul class="list-group list-group-flush">
-                    <li class="list-group-item bg-secondary text-white-50">
-                      <a href="" class="btn btn-outline-light">Details</a>
-                    </li>
-                    <li class="list-group-item bg-secondary text-white-50">
-                      Location
-                    </li>
-                    <li class="list-group-item bg-secondary text-white-50">
-                      Rating
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+            {%endfor%}
           </div>
         </div>
       </div>

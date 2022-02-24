@@ -8,13 +8,17 @@ from rvpad_app.models import Restaurant, Review
 
 def restaurant_details(request, rest_id):
     rest = Restaurant.objects.get(id=rest_id)
-    """ reviews = rest.reviews.all()
+    reviews = rest.reviews.all()
     sum = 0
     for review in reviews:
         sum = sum+int(review.rating)
-    rating = sum/len(reviews) """
+    if len(reviews) > 0:
+        rating = sum/len(reviews)
+    else:
+        rating = 'No ratings yet'
     context = {
         'rest': rest,
+        'rating': rating
     }
     return render(request, 'rest_details.html', context)
 
@@ -33,7 +37,7 @@ def create_restaurant(request):
             created_rest.save()
         return redirect('/rvpad/restaurants')
     else:
-        return redirect('/')
+        return redirect('/login_register')
 
 
 def about_us(request):
@@ -42,3 +46,25 @@ def about_us(request):
 
 def landing_page(request):
     return render(request, 'landing.html')
+
+
+def restaurants(request):
+    if 'userid' in request.session:
+        context = {
+            'rests': Restaurant.objects.all()
+        }
+        return render(request, 'home.html', context)
+    else:
+        redirect('/login_register')
+
+
+def add_review(request, rest_id):
+    if 'userid' in request.session:
+        logged_user = User.objects.get(id=request.session['userid'])
+        rest = Restaurant.objects.get(id=rest_id)
+        Review.objects.create(
+            text=request.POST['rev_text'], rating=request.POST['rating'], posted_by=logged_user, reviewed_restaurant=rest)
+
+        return redirect(f'/rvpad/restaurants/{rest_id}')
+    else:
+        return redirect('/login_register')

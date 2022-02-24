@@ -65,9 +65,9 @@ def login(request):
         logged_user = user[0]
         if bcrypt.checkpw(request.POST['password'].encode(), logged_user.password.encode()):
             request.session['userid'] = logged_user.id
-            return redirect('/wishes')
+            return redirect('/rvpad/restaurants')
 
-    return redirect('/')
+    return redirect('/login_register')
 
 
 def logout(request):
