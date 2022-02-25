@@ -59,7 +59,7 @@ def login(request):
         for key, value in errors.items():
             messages.error(request, value)
 
-        return redirect('/')
+        return redirect('/login_register')
     user = User.objects.filter(email=request.POST['email'])
     if len(user) != 0:
         logged_user = user[0]

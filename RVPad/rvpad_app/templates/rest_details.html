@@ -24,7 +24,7 @@
         >Profile</a
       >
     </nav>
-    <div class="row">
+    <div class="row mb-5">
       <div class="col-md-4 offset-md-2 col-12 mt-5">
         <div class="card bg-secondary" style="width: 18rem">
           <img src="{{rest.image.url}}" class="card-img-top" alt="..." />
@@ -40,8 +40,22 @@
                 {{rest.location}}
               </li>
               <li class="list-group-item bg-secondary text-white-50">
-               Rating: {{rating}}
+                Rating: {{rating}}
               </li>
+              {% if rest.posted_by.id == request.session.userid%}
+              <li class="list-group-item bg-secondary text-white-50">
+                <a
+                  href="/rvpad/restaurants/edit/{{rest.id}}"
+                  class="btn btn-primary"
+                  >Edit</a
+                >
+                <a
+                  href="/rvpad/restaurants/delete/{{rest.id}}"
+                  class="btn btn-danger"
+                  >Delete</a
+                >
+              </li>
+              {%endif%}
             </ul>
           </div>
         </div>
@@ -89,13 +103,17 @@
       </div>
     </div>
     {%for review in rest.reviews.all%}
-    <div class="row mb-5">
+    <div class="row mb-3">
       <div class="col-md-6 mt-5 offset-md-2 border border-2 rounded-3 p-2">
         <p>Added by: {{review.posted_by.first_name}}</p>
         <p>{{review.text}}</p>
         <p>Rating: {{review.rating}}</p>
         {%if review.posted_by.id == request.session.userid %}
-        <a class="btn btn-danger" href="/rvpad/reviews/delete/{{review.id}}/{{rest.id}}">Delete</a>
+        <a
+          class="btn btn-danger"
+          href="/rvpad/reviews/delete/{{review.id}}/{{rest.id}}"
+          >Delete</a
+        >
         {%endif%}
       </div>
     </div>

@@ -10,9 +10,10 @@ class RestaurantManager(models.Manager):
 
         if len(postData['name']) < 2:
             errors['name'] = 'Name should be at least 2 characters'
-
-        if len(postData['description']) < 10:
-            errors['description'] = 'Description should be at least 10 characters'
+        if len(postData['desc']) < 10:
+            errors['desc'] = 'Description should be at least 10 characters'
+        if len(postData['location']) < 2:
+            errors['location'] = 'Location must be at least 2 characters'
 
         return errors
 

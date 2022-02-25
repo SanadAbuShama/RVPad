@@ -16,15 +16,30 @@
     <nav class="navbar navbar-light bg-secondary justify-content-between px-2">
       <a href="/" class="navbar-brand mr-8 text-white-50">RVPad</a>
 
-      <a class="btn btn-outline-light my-2 my-sm-0 ms-auto me-2" type="submit"
+      <a href="/logout" class="btn btn-outline-light my-2 my-sm-0 ms-auto me-2"
         >Logout</a
       >
-      <a class="btn btn-outline-light my-2 my-sm-0" type="submit">Profile</a>
+      <a href="/rvpad/users/{{request.session.userid}}" class="btn btn-outline-light my-2 my-sm-0">Profile</a>
     </nav>
 
     <div class="container">
       <div class="row mt-5">
         <div class="col-md-8 offset-md-2">
+          <ul class="messages text-start">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }} alert alert-danger alert-dismissible fade show" {% endif %}
+              role="alert"
+            >
+              {{ message }}
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+              ></button>
+            </li>
+            {% endfor %}
+          </ul>
           <form
             action="/rvpad/restaurants/add"
             method="post"
@@ -52,7 +67,7 @@
             <div class="mb-3">
               <textarea
                 class="form-control"
-                id="exampleFormControlTextarea1"
+                id="desc"
                 rows="3"
                 name="desc"
                 placeholder="Description"
@@ -60,7 +75,7 @@
             </div>
 
             <div class="mb-3">
-              <label for="exampleFormControlTextarea1" class="form-label"
+              <label for="image" class="form-label"
                 >Add Image:</label
               >
               <input class="form-control" type="file" name="image" id="image" />

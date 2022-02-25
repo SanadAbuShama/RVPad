@@ -14,9 +14,45 @@
     />
   </head>
   <body class="bg-dark text-white-50">
-    <div class="bg-secondary text-white-50 text-center">
-      <h1>About Us</h1>
-    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+      <div class="container-fluid">
+        <a class="navbar-brand text-white-50" href="/">RVPad</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mb-2 ms-auto mb-lg-0">
+            {% if 'userid' in request.session%}
+            <li class="my-2">
+              <a
+                href="/rvpad/users/{{request.session.userid}}"
+                class="btn btn-outline-light me-2"
+                >Profile</a
+              >
+            </li>
+            <li class="my-2">
+              <a href="/logout" class="btn btn-outline-light me-2">Logout</a>
+            </li>
+            {%else%}
+            <li class="my-2">
+              <a href="/login_register" class="btn btn-outline-light me-2"
+                >Login/Register</a
+              >
+            </li>
+            {%endif%}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
     <div class="row mt-5">
       <div class="col-lg-8 offset-lg-2 col-10 offset-1">
         <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -38,21 +74,27 @@
                     Full Stack Developer
                   </li>
                   <li class="list-group-item bg-secondary text-white-50">
-                    mubarakadli_cr@hotmail.com
+                    <a
+                      href="mailto:mubarakadli_cr@hotmail.com"
+                      class="text-white-50"
+                      >mubarakadli_cr@hotmail.com</a
+                    >
                   </li>
                   <li class="list-group-item bg-secondary text-white-50">
                     <div class="row">
                       <div class="col mt-2">
                         <a
+                          target="_blank"
                           href="https://github.com/MubarakAdli/"
-                          class="card-link btn btn-primary float-end float-md-none"
+                          class="card-link btn btn-outline-light float-end float-md-none"
                           >Github</a
                         >
                       </div>
                       <div class="col mt-2">
                         <a
+                          target="_blank"
                           href="https://www.linkedin.com/in/mubarakmubarak"
-                          class="card-link btn btn-primary"
+                          class="card-link btn btn-outline-light"
                           >LinkedIn</a
                         >
                       </div>
@@ -80,21 +122,27 @@
                     Full Stack Developer
                   </li>
                   <li class="list-group-item bg-secondary text-white-50">
-                    mahmoud_alessa@yahoo.com
+                    <a
+                      href="mailto:mahmoud_alessa@yahoo.com"
+                      class="text-white-50"
+                      >mahmoud_alessa@yahoo.com</a
+                    >
                   </li>
                   <li class="list-group-item bg-secondary text-white-50">
                     <div class="row">
                       <div class="col mt-2">
                         <a
+                          target="_blank"
                           href="https://github.com/m0H-alessa/"
-                          class="card-link btn btn-primary float-end float-md-none"
+                          class="card-link btn btn-outline-light float-end float-md-none"
                           >Github</a
                         >
                       </div>
                       <div class="col mt-2">
                         <a
+                          target="_blank"
                           href="https://www.linkedin.com/in/mahmoud-al-essa/"
-                          class="card-link btn btn-primary"
+                          class="card-link btn btn-outline-light"
                           >LinkedIn</a
                         >
                       </div>
@@ -122,21 +170,27 @@
                     Full Stack Developer
                   </li>
                   <li class="list-group-item bg-secondary text-white-50">
-                    abushamasanad@hotmail.com
+                    <a
+                      href="mailto:abushamasanad@hotmail.com"
+                      class="text-white-50"
+                      >abushamasanad@hotmail.com</a
+                    >
                   </li>
                   <li class="list-group-item bg-secondary text-white-50">
                     <div class="row">
                       <div class="col mt-2">
                         <a
+                          target="_blank"
                           href="https://github.com/SanadAbuShama"
-                          class="card-link btn btn-primary float-end float-md-none"
+                          class="card-link btn btn-outline-light float-end float-md-none"
                           >Github</a
                         >
                       </div>
                       <div class="col mt-2">
                         <a
+                          target="_blank"
                           href="https://www.linkedin.com/in/sanad-abu-shama/"
-                          class="card-link btn btn-primary"
+                          class="card-link btn btn-outline-light"
                           >LinkedIn</a
                         >
                       </div>

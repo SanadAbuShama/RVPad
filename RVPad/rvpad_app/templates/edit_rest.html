@@ -14,25 +14,46 @@
   </head>
   <body class="bg-dark text-white-50">
     <nav class="navbar navbar-light bg-secondary justify-content-between px-2">
-      <a href="#" class="navbar-brand mr-8 text-white-50">Website</a>
+      <a href="/rvpad/restaurants" class="navbar-brand mr-8 text-white-50">RVPad</a>
 
-      <a class="btn btn-outline-light my-2 my-sm-0 ms-auto me-2" type="submit"
+      <a href="/logout" class="btn btn-outline-light my-2 my-sm-0 ms-auto me-2"
         >Logout</a
       >
-      <a class="btn btn-outline-light my-2 my-sm-0" type="submit">Profile</a>
+      <a href="/rvpad/users/{{request.session.userid}}" class="btn btn-outline-light my-2 my-sm-0">Profile</a>
     </nav>
 
     <div class="container">
       <div class="row mt-5">
         <div class="col-md-8 offset-md-2">
-          <form action="/register" method="post" enctype="multipart/form-data">
+          <ul class="messages text-start">
+            {% for message in messages %}
+            <li
+              {% if message.tags %} class="{{ message.tags }} alert alert-danger alert-dismissible fade show" {% endif %}
+              role="alert"
+            >
+              {{ message }}
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+              ></button>
+            </li>
+            {% endfor %}
+          </ul>
+          <form
+            action="/rvpad/restaurants/update/{{rest.id}}"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            {%csrf_token%}
             <div class="mb-3">
               <input
                 type="text"
                 class="form-control"
                 id="name"
                 name="name"
-                placeholder="Restaurant name"
+                value="{{rest.name}}"
               />
             </div>
             <div class="mb-3">
@@ -41,20 +62,27 @@
                 class="form-control"
                 id="location"
                 name="location"
-                placeholder="Location"
+                value="{{rest.location}}"
               />
             </div>
-           
             <div class="mb-3">
+              <textarea class="form-control" id="desc" rows="3" name="desc">
+{{rest.description}}</textarea
+              >
+            </div>
+            <div class="mb-3">
+              <label for="image" class="form-label"
+              >Update Image:</label
+            >
               <input class="form-control" type="file" name="image" id="image" />
             </div>
-
             <button
               type="submit"
               class="btn btn-success float-end border border-dark"
             >
               Update restaurant
             </button>
+            <a href="/rvpad/restaurants" class="btn btn-danger float-end border border-dark me-1"> Cancel </a>
           </form>
         </div>
       </div>

@@ -16,7 +16,9 @@
   <body class="bg-dark text-white-50">
     <nav class="navbar navbar-white-50 bg-secondary">
       <div class="container-fluid">
-        <span class="navbar-brand mb-0 h1">Welcome to RVPad, feel free to sign up or log in!</span>
+        <span class="navbar-brand mb-0 h1"
+          >Welcome to RVPad, feel free to sign up or log in!</span
+        >
       </div>
     </nav>
     <div class="row mt-5">
@@ -24,10 +26,19 @@
         <div class="row">
           <div class="col-md-6 col-12 text-center bg-secondary p-3 rounded-3">
             <h4 class="mb-3">Register</h4>
-            {%if request.session.which_form == 'register'%} {% if messages %}
+            {%if request.session.which_form == 'register'%} 
+            {% if messages %}
             <ul class="messages text-start">
               {% for message in messages %}
-              <li {% if message.tags %} class="{{ message.tags }} alert alert-danger alert-dismissible fade show" {% endif %}
+              <li
+                {%
+                if
+                message.tags
+                %}
+                class="{{ message.tags }} alert alert-danger alert-dismissible fade show"
+                {%
+                endif
+                %}
                 role="alert"
               >
                 {{ message }}
@@ -40,8 +51,13 @@
               </li>
               {% endfor %}
             </ul>
-            {% endif %} {%endif%}
-            <form action="/register" method="post" enctype="multipart/form-data">
+            {% endif %} 
+            {%endif%}
+            <form
+              action="/register"
+              method="post"
+              enctype="multipart/form-data"
+            >
               {%csrf_token%}
               <input type="hidden" name="which_form" value="register" />
               <div class="mb-3">
@@ -71,8 +87,14 @@
                   placeholder="Email"
                 />
               </div>
-              <div class="mb-3">
-                <input class="form-control" type="file" name="image" id="image">
+              <div class="mb-3 text-start">
+                <label for="image" class="form-label">Add Image:</label>
+                <input
+                  class="form-control"
+                  type="file"
+                  name="image"
+                  id="image"
+                />
               </div>
               <div class="mb-3">
                 <input
@@ -93,15 +115,30 @@
                 />
               </div>
 
-              <button type="submit" class="btn btn-success float-end border border-dark">Register</button>
+              <button
+                type="submit"
+                class="btn btn-success float-end border border-dark"
+              >
+                Register
+              </button>
             </form>
           </div>
-          <div class="col-md-5 col-12 offset-md-1 text-center bg-secondary h-25 p-3 rounded-3 mt-5 mb-5 mb-md-0 mt-md-0">
+          <div
+            class="col-md-5 col-12 offset-md-1 text-center bg-secondary h-25 p-3 rounded-3 mt-5 mb-5 mb-md-0 mt-md-0"
+          >
             <h4 class="mb-3">Login</h4>
             {%if request.session.which_form == 'login'%} {% if messages %}
             <ul class="messages text-start">
               {% for message in messages %}
-              <li {% if message.tags %} class="{{ message.tags }} alert alert-danger alert-dismissible fade show" {% endif %}
+              <li
+                {%
+                if
+                message.tags
+                %}
+                class="{{ message.tags }} alert alert-danger alert-dismissible fade show"
+                {%
+                endif
+                %}
                 role="alert"
               >
                 {{ message }}
@@ -136,7 +173,12 @@
                   placeholder="Password"
                 />
               </div>
-              <button type="submit" class="btn btn-success float-end border border-dark">Login</button>
+              <button
+                type="submit"
+                class="btn btn-success float-end border border-dark"
+              >
+                Login
+              </button>
             </form>
           </div>
         </div>

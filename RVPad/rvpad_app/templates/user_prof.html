@@ -13,61 +13,90 @@
     crossorigin="anonymous"
   />
   <body class="bg-dark text-white-50">
-
     <nav class="navbar navbar-light bg-secondary justify-content-between px-2">
       <a href="/" class="navbar-brand mr-8 text-white-50">RVPad</a>
 
-      <a href="/logout" class="btn btn-outline-light my-2 my-sm-0 ms-auto me-2" >Logout</a>
-  </nav>
-
+      <a href="/logout" class="btn btn-outline-light my-2 my-sm-0 ms-auto me-2"
+        >Logout</a
+      >
+    </nav>
 
     <div class="row my-5">
-      <div class="col-md-6 offset-md-4 text-center col-8  ">
-        <div class="card" style="width: 32rem">
+      <div class="col-md-5 offset-md-4 text-center col-10 offset-1">
+        <div class="card">
           <img src="{{user.image.url}}" class="card-img-top" alt="imgg" />
-          <div class="card-body bg-secondary ">
+          <div class="card-body bg-secondary">
             <ul class="list-group list-group-flush">
-              <li class="list-group-item bg-secondary text-white-50">{{user.first_name}} {{user.last_name}}</li>
-              <li class="list-group-item bg-secondary text-white-50">{{user.email}}</li>
-              <li class="list-group-item bg-secondary text-white-50">Number of reviews : {{num_reviews}}</li>
+              <li class="list-group-item bg-secondary text-white-50">
+                {{user.first_name}} {{user.last_name}}
+              </li>
+              <li class="list-group-item bg-secondary text-white-50">
+                {{user.email}}
+              </li>
+              <li class="list-group-item bg-secondary text-white-50">
+                Number of reviews : {{num_reviews}}
+              </li>
             </ul>
           </div>
         </div>
       </div>
     </div>
-    <div class="row mt-5 mb-5">
-      <div class="col-lg-10 offset-lg-1 col-12">
-        <div class="row row-cols-1 row-cols-md-3 row-cols-sm-2 g-4">
-          {%for rest in user.restaurants.all%}
-          <div class="col">
-            <div class="card bg-secondary">
-              <img
-                src="{{rest.image.url}}"
-                class="card-img-top"
-                alt="Restaurant Image"
-              />
-              <div class="card-body">
-                <h5 class="card-title">{{rest.name}}</h5>
-                <p class="card-text">{{rest.description}}</p>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item bg-secondary text-white-50">
-                    <a
-                      href="/rvpad/restaurants/{{rest.id}}"
-                      class="btn btn-outline-light"
-                      >Details</a
-                    >
-                  </li>
-                  <li class="list-group-item bg-secondary text-white-50">
-                    {{rest.location}}
-                  </li>
-                  <li class="list-group-item bg-secondary text-white-50">
-                    <a  class='btn btn-danger' href="/rvpad/restaurants/delete/{{rest.id}}">Delete</a>
-                  </li>
-                </ul>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-6 offset-3 text-center">
+          <h4>Restaurants by {{user.first_name}}:</h4>
+        </div>
+      </div>
+      <div class="row mt-5 mb-5">
+        <div class="col-lg-10 offset-lg-1 col-12">
+          <div class="row row-cols-1 row-cols-md-3 row-cols-sm-2 g-4">
+            {%for rest in user.restaurants.all%}
+            <div class="col">
+              <div class="card bg-secondary">
+                <img
+                  src="{{rest.image.url}}"
+                  class="card-img-top"
+                  alt="Restaurant Image"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">{{rest.name}}</h5>
+                  <p class="card-text">{{rest.description}}</p>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item bg-secondary text-white-50">
+                      <a
+                        href="/rvpad/restaurants/{{rest.id}}"
+                        class="btn btn-outline-light"
+                        >Details</a
+                      >
+                    </li>
+                    <li class="list-group-item bg-secondary text-white-50">
+                      {{rest.location}}
+                    </li>
+                    <li class="list-group-item bg-secondary text-white-50">
+                      <div class="row">
+                        <div class="col mt-2">
+                          <a
+                            class="btn btn-danger float-end float-sm-none"
+                            href="/rvpad/restaurants/delete/{{rest.id}}"
+                            >Delete</a
+                          >
+                        </div>
+                        <div class="col mt-2">
+                          <a
+                            class="btn btn-primary"
+                            href="/rvpad/restaurants/edit/{{rest.id}}"
+                            >Edit</a
+                          >
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
+            {%endfor%}
           </div>
-          {%endfor%}
         </div>
       </div>
     </div>

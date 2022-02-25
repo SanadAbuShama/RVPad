@@ -4,6 +4,8 @@ from . import views
 urlpatterns = [
     path('restaurants/new', views.add_restaurant),
     path('restaurants/add', views.create_restaurant),
+    path('restaurants/edit/<int:rest_id>', views.edit_restaurant),
+    path('restaurants/update/<int:rest_id>', views.update_restaurant),
     path('landing', views.landing_page),
     path('about_us', views.about_us),
     path('restaurants', views.restaurants),
@@ -13,4 +15,3 @@ urlpatterns = [
     path('restaurants/delete/<int:rest_id>', views.restaurant_delete),
     path('reviews/delete/<int:rev_id>/<int:rest_id>', views.review_delete),
 ]
-
