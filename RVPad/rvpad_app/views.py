@@ -14,7 +14,7 @@ def restaurant_details(request, rest_id):
         for review in reviews:
             sum = sum+int(review.rating)
         if len(reviews) > 0:
-            rating = round(sum/len(reviews),1)
+            rating = round(sum/len(reviews), 1)
         else:
             rating = 'No ratings yet'
         context = {
@@ -97,10 +97,10 @@ def user_profile(request, user_id):
 
 def restaurant_delete(request, rest_id):
     if 'userid' in request.session:
-        user = User.objects.get(id=request.session['userid'])
+
         rest = Restaurant.objects.get(id=rest_id)
         rest.delete()
-        return redirect(f'/rvpad/users/{user.id}')
+        return redirect('/rvpad/restaurants')
     else:
         return redirect('/login_register')
 
