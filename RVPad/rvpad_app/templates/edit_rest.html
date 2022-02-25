@@ -53,6 +53,8 @@
                 class="form-control"
                 id="name"
                 name="name"
+                minlength="2"
+                required
                 value="{{rest.name}}"
               />
             </div>
@@ -62,11 +64,13 @@
                 class="form-control"
                 id="location"
                 name="location"
+                minlength="2"
+                required
                 value="{{rest.location}}"
               />
             </div>
             <div class="mb-3">
-              <textarea class="form-control" id="desc" rows="3" name="desc">
+              <textarea class="form-control" id="desc" rows="3" minlength="10" required name="desc">
 {{rest.description}}</textarea
               >
             </div>
