@@ -68,3 +68,33 @@ def add_review(request, rest_id):
         return redirect(f'/rvpad/restaurants/{rest_id}')
     else:
         return redirect('/login_register')
+
+def user_profile(request,user_id):
+    if 'userid' in request.session:
+        user=User.objects.get(id=user_id)
+        reviews=user.reviews.all()
+        context={
+            'user':user,
+            'num_reviews':len(reviews)
+        }
+        return render(request,'user_prof.html',context)
+    else:
+        return redirect('/login_register')
+
+def restaurant_delete(request,rest_id):
+    if 'userid' in request.session:
+        user=User.objects.get(id=request.session['userid'])
+        rest=Restaurant.objects.get(id=rest_id)
+        rest.delete()
+        return redirect(f'/rvpad/users/{user.id}')
+    else:
+        return redirect('/login_register')
+
+def review_delete(request,rev_id,rest_id):
+    if 'userid' in request.session:
+        user=User.objects.get(id=request.session['userid'])
+        rev=Review.objects.get(id=rev_id)
+        rev.delete()
+        return redirect(f'/rvpad/restaurants/{rest_id}')
+    else:
+        return redirect('/login_register')

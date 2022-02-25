@@ -94,6 +94,9 @@
         <p>Added by: {{review.posted_by.first_name}}</p>
         <p>{{review.text}}</p>
         <p>Rating: {{review.rating}}</p>
+        {%if review.posted_by.id == request.session.userid %}
+        <a class="btn btn-danger" href="/rvpad/reviews/delete/{{review.id}}/{{rest.id}}">Delete</a>
+        {%endif%}
       </div>
     </div>
     {%endfor%}
