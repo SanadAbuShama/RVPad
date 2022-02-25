@@ -34,7 +34,7 @@ def register(request):
         for key, value in errors.items():
             messages.error(request, value)
 
-        return redirect('/')
+        return redirect('/login_register')
     else:
 
         password = request.POST['password']
@@ -49,7 +49,7 @@ def register(request):
         if user:
             logged_user = user[0]
             request.session['userid'] = logged_user.id
-        return redirect('/profile')
+        return redirect('/rvpad/restaurants')
 
 
 def login(request):
