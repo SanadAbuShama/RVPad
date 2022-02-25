@@ -11,7 +11,7 @@ class RestaurantManager(models.Manager):
         if len(postData['name']) < 2:
             errors['name'] = 'Name should be at least 2 characters'
 
-        if len(postData['description']) < 2:
+        if len(postData['description']) < 10:
             errors['description'] = 'Description should be at least 10 characters'
 
         return errors
@@ -21,11 +21,8 @@ class ReviewManager(models.Manager):
     def review_validator(self, postData):
         errors = {}
 
-        if len(postData['name']) < 2:
-            errors['name'] = 'Name should be at least 2 characters'
-
-        if len(postData['description']) < 2:
-            errors['description'] = 'Description should be at least 10 characters'
+        if len(postData['rev_text']) < 5:
+            errors['name'] = 'Review should be at least 5 characters'
 
         return errors
 
