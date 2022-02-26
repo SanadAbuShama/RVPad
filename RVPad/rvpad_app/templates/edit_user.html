@@ -26,7 +26,6 @@
     <div class="container">
       <div class="row mt-5">
         <div class="col-md-8 offset-md-2">
-          
           <form id="regForm"
             action="/rvpad/users/update/{{user.id}}"
             method="post"
@@ -34,6 +33,7 @@
           >
             {%csrf_token%}
             <div class="mb-3">
+              <div id="first_name_msg"></div>
               <input
                 type="text"
                 class="form-control"
@@ -45,6 +45,7 @@
               />
             </div>
             <div class="mb-3">
+              <div id="last_name_msg"></div>
                 <input
                   type="text"
                   class="form-control"
