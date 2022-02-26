@@ -20,4 +20,5 @@ urlpatterns = [
     path('users/update_password/<int:user_id>', views.update_password),
     path('search', views.search),
     path('search/result', views.result),
+    path('name', views.rest_name),
 ]

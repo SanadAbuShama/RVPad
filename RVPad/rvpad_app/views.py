@@ -223,3 +223,13 @@ def update_password(request, user_id):
             return redirect(f'/rvpad/users/{logged_user.id}')
     else:
         return redirect('/login_register')
+
+def rest_name(request):
+    found =False
+    rest = Restaurant.objects.filter(name = request.POST['name'])
+    if rest:
+        found=True
+    context={
+        'found':found
+    }
+    return render(request,'partials/name.html',context)
