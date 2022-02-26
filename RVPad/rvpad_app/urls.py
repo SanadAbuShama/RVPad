@@ -16,4 +16,6 @@ urlpatterns = [
     path('reviews/delete/<int:rev_id>/<int:rest_id>', views.review_delete),
     path('users/edit/<int:user_id>', views.edit_user),
     path('users/update/<int:user_id>', views.update_user),
+    path('search', views.search),
+    path('search/result', views.result),
 ]

@@ -22,7 +22,7 @@ def profile(request):
 
 def index(request):
     if 'userid' in request.session:
-        return redirect('/wishes')
+        return redirect('/rvpad/restaurants')
     else:
         return render(request, 'index.html')
 
@@ -73,3 +73,5 @@ def login(request):
 def logout(request):
     request.session.clear()
     return redirect('/')
+
+

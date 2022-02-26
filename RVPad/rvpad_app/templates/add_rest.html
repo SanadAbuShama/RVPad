@@ -16,10 +16,10 @@
     <nav class="navbar navbar-light bg-secondary justify-content-between px-2">
       <a href="/" class="navbar-brand mr-8 text-white-50">RVPad</a>
       <h4 class="navbar-brand  text-white-50 my-sm-0 ms-auto me-2">Welcome {{user.first_name}}</h4>
+      <a href="/rvpad/users/{{request.session.userid}}" class="btn btn-outline-light my-2 my-sm-0 me-2">Profile</a>
       <a href="/logout" class="btn btn-outline-light my-2 my-sm-0  me-2"
         >Logout</a
       >
-      <a href="/rvpad/users/{{request.session.userid}}" class="btn btn-outline-light my-2 my-sm-0">Profile</a>
     </nav>
 
     <div class="container">

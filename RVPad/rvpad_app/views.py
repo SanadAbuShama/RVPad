@@ -10,7 +10,7 @@ def restaurant_details(request, rest_id):
     if 'userid' in request.session:
         user = User.objects.get(id=request.session['userid'])
         rest = Restaurant.objects.get(id=rest_id)
-        reviews = rest.reviews.all()
+        reviews = rest.reviews.all().order_by('-created_at')
         sum = 0
         for review in reviews:
             sum = sum+int(review.rating)
@@ -21,7 +21,8 @@ def restaurant_details(request, rest_id):
         context = {
             'user':user,
             'rest': rest,
-            'rating': rating
+            'rating': rating,
+            'reviews':reviews
         }
         return render(request, 'rest_details.html', context)
     else:
@@ -175,3 +176,19 @@ def update_user(request, user_id):
 
     else:
         return redirect('/login_register')
+
+def search(request):
+    if 'userid' in request.session:
+        request.session['search']=request.POST['search']
+        return redirect('/rvpad/search/result')
+    else:
+        return redirect('/login_register')
+
+def result(request):
+    rests1=list(Restaurant.objects.filter(name__contains=request.session['search']))
+    rests2=list(Restaurant.objects.filter(location__contains=request.session['search']))
+    rests=rests1 + rests2
+    context={
+        'rests':rests
+    }
+    return render (request, 'result.html', context)
