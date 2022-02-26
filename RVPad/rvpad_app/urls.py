@@ -14,4 +14,6 @@ urlpatterns = [
     path('users/<int:user_id>', views.user_profile),
     path('restaurants/delete/<int:rest_id>', views.restaurant_delete),
     path('reviews/delete/<int:rev_id>/<int:rest_id>', views.review_delete),
+    path('users/edit/<int:user_id>', views.edit_user),
+    path('users/update/<int:user_id>', views.update_user),
 ]

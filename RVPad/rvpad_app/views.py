@@ -8,6 +8,7 @@ from django.contrib import messages
 
 def restaurant_details(request, rest_id):
     if 'userid' in request.session:
+        user = User.objects.get(id=request.session['userid'])
         rest = Restaurant.objects.get(id=rest_id)
         reviews = rest.reviews.all()
         sum = 0
@@ -18,6 +19,7 @@ def restaurant_details(request, rest_id):
         else:
             rating = 'No ratings yet'
         context = {
+            'user':user,
             'rest': rest,
             'rating': rating
         }
@@ -28,7 +30,10 @@ def restaurant_details(request, rest_id):
 
 def add_restaurant(request):
     if 'userid' in request.session:
-        return render(request, 'add_rest.html')
+        context={
+        'user' : User.objects.get(id=request.session['userid']),
+        }
+        return render(request, 'add_rest.html',context)
     else:
         return redirect('/login_register')
 
@@ -63,7 +68,8 @@ def landing_page(request):
 def restaurants(request):
     if 'userid' in request.session:
         context = {
-            'rests': Restaurant.objects.all()
+            'rests': Restaurant.objects.all(),
+            'user' : User.objects.get(id=request.session['userid']),
         }
         return render(request, 'home.html', context)
     else:
@@ -76,6 +82,7 @@ def add_review(request, rest_id):
         rest = Restaurant.objects.get(id=rest_id)
         Review.objects.create(
             text=request.POST['rev_text'], rating=request.POST['rating'], posted_by=logged_user, reviewed_restaurant=rest)
+        
 
         return redirect(f'/rvpad/restaurants/{rest_id}')
     else:
@@ -141,5 +148,30 @@ def update_restaurant(request, rest_id):
             rest.save()
 
             return redirect(f'/rvpad/restaurants/{rest_id}')
+    else:
+        return redirect('/login_register')
+
+def edit_user(request, user_id):
+    if 'userid' in request.session:
+        context = {
+            'user': User.objects.get(id=user_id)
+        }
+        return render(request, 'edit_user.html', context)
+    else:
+        return redirect('/login_register')
+
+
+def update_user(request, user_id):
+    if 'userid' in request.session:
+        user = User.objects.get(id=user_id)
+        user.first_name = request.POST['first_name']
+        user.last_name = request.POST['last_name']
+        user.email = request.POST['email']
+        if 'image' in request.FILES:
+            user.image = request.FILES['image']
+        user.save()
+
+        return redirect(f'/rvpad/users/{user_id}')
+
     else:
         return redirect('/login_register')
