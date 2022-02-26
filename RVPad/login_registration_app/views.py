@@ -75,3 +75,12 @@ def logout(request):
     return redirect('/')
 
 
+def email(request):
+    found =False
+    user = User.objects.filter(email = request.POST['email'])
+    if user:
+        found=True
+    context={
+        'found':found
+    }
+    return render(request,'partials/email.html',context)

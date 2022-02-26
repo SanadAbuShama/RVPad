@@ -10,5 +10,6 @@ urlpatterns = [
     path('login', views.login),
     path('logout', views.logout),
     path('profile', views.profile),
+    path('email', views.email),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

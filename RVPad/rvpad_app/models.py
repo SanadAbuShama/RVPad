@@ -7,25 +7,19 @@ from login_registration_app.models import User
 class RestaurantManager(models.Manager):
     def restaurant_validator(self, postData):
         errors = {}
-
+        rest = Restaurant.objects.filter(name=postData['name'])
         if len(postData['name']) < 2:
             errors['name'] = 'Name should be at least 2 characters'
         if len(postData['desc']) < 10:
             errors['desc'] = 'Description should be at least 10 characters'
         if len(postData['location']) < 2:
             errors['location'] = 'Location must be at least 2 characters'
-
+        if rest:
+            errors['name_confirm'] = 'A restaurant with this name already exists'
         return errors
 
 
-class ReviewManager(models.Manager):
-    def review_validator(self, postData):
-        errors = {}
 
-        if len(postData['rev_text']) < 5:
-            errors['name'] = 'Review should be at least 5 characters'
-
-        return errors
 
 
 class Restaurant(models.Model):
@@ -53,7 +47,7 @@ class Review(models.Model):
         Restaurant, related_name="reviews", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    objects = ReviewManager()
+   
 
     def __str__(self):
         return f"<Review object: {self.rating}>"
