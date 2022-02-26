@@ -57,7 +57,15 @@ class UserManager(models.Manager):
             errors['user'] = 'No account associated with this email'
 
         return errors
+        
+    def update_password_validator(self, postData):
+        errors = {}
+        if len(postData['password']) < 8:
+            errors['password'] = 'Password should be at least 8 characters'
 
+        if postData['password'] != postData['confirm_password']:
+            errors['confirm_password'] = 'Passwords do not match'
+        return errors
 
 class User(models.Model):
     first_name = models.CharField(max_length=255)

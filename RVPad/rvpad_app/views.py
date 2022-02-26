@@ -1,10 +1,9 @@
-from multiprocessing import context
-import re
+
 from django.shortcuts import redirect, render
 from login_registration_app.models import User
 from rvpad_app.models import Restaurant, Review
 from django.contrib import messages
-
+import bcrypt
 
 def restaurant_details(request, rest_id):
     if 'userid' in request.session:
@@ -19,10 +18,10 @@ def restaurant_details(request, rest_id):
         else:
             rating = 'No ratings yet'
         context = {
-            'user':user,
+            'user': user,
             'rest': rest,
             'rating': rating,
-            'reviews':reviews
+            'reviews': reviews
         }
         return render(request, 'rest_details.html', context)
     else:
@@ -31,10 +30,10 @@ def restaurant_details(request, rest_id):
 
 def add_restaurant(request):
     if 'userid' in request.session:
-        context={
-        'user' : User.objects.get(id=request.session['userid']),
+        context = {
+            'user': User.objects.get(id=request.session['userid']),
         }
-        return render(request, 'add_rest.html',context)
+        return render(request, 'add_rest.html', context)
     else:
         return redirect('/login_register')
 
@@ -70,22 +69,23 @@ def restaurants(request):
     if 'userid' in request.session:
         context = {
             'rests': Restaurant.objects.all(),
-            'user' : User.objects.get(id=request.session['userid']),
+            'user': User.objects.get(id=request.session['userid']),
         }
         return render(request, 'home.html', context)
     else:
-        redirect('/login_register')
+        return redirect('/login_register')
 
 
 def add_review(request, rest_id):
     if 'userid' in request.session:
         logged_user = User.objects.get(id=request.session['userid'])
         rest = Restaurant.objects.get(id=rest_id)
-        Review.objects.create(
-            text=request.POST['rev_text'], rating=request.POST['rating'], posted_by=logged_user, reviewed_restaurant=rest)
-        
-
-        return redirect(f'/rvpad/restaurants/{rest_id}')
+        if not rest.reviews.filter(posted_by=logged_user):
+            Review.objects.create(
+                text=request.POST['rev_text'], rating=request.POST['rating'], posted_by=logged_user, reviewed_restaurant=rest)
+            return redirect(f'/rvpad/restaurants/{rest_id}')
+        else:
+            return redirect(f'/rvpad/restaurants/{rest_id}')
     else:
         return redirect('/login_register')
 
@@ -105,10 +105,10 @@ def user_profile(request, user_id):
 
 def restaurant_delete(request, rest_id):
     if 'userid' in request.session:
-
+        logged_user = User.objects.get(id=request.session['userid'])
         rest = Restaurant.objects.get(id=rest_id)
         rest.delete()
-        return redirect('/rvpad/restaurants')
+        return redirect(f'/rvpad/users/{logged_user.id}')
     else:
         return redirect('/login_register')
 
@@ -152,6 +152,7 @@ def update_restaurant(request, rest_id):
     else:
         return redirect('/login_register')
 
+
 def edit_user(request, user_id):
     if 'userid' in request.session:
         context = {
@@ -177,18 +178,48 @@ def update_user(request, user_id):
     else:
         return redirect('/login_register')
 
+
 def search(request):
     if 'userid' in request.session:
-        request.session['search']=request.POST['search']
+        request.session['search'] = request.POST['search']
         return redirect('/rvpad/search/result')
     else:
         return redirect('/login_register')
 
+
 def result(request):
-    rests1=list(Restaurant.objects.filter(name__contains=request.session['search']))
-    rests2=list(Restaurant.objects.filter(location__contains=request.session['search']))
-    rests=rests1 + rests2
-    context={
-        'rests':rests
+    rests1 = list(Restaurant.objects.filter(
+        name__contains=request.session['search']))
+    rests2 = list(Restaurant.objects.filter(
+        location__contains=request.session['search']))
+    rests = list(set(rests1+rests2))
+    context = {
+        'rests': rests
     }
-    return render (request, 'result.html', context)
+    return render(request, 'result.html', context)
+
+
+def edit_password(request):
+    if 'userid' in request.session:
+        return render(request, 'edit_password.html')
+    else:
+        return redirect('/login_register')
+
+
+def update_password(request, user_id):
+    if 'userid' in request.session:
+        logged_user = User.objects.get(id=request.session['userid'])
+        errors = User.objects.update_password_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect('/rvpad/users/edit_password')
+        else:
+            password = request.POST['password']
+            pw_hash = bcrypt.hashpw(
+                password.encode(), bcrypt.gensalt()).decode()
+            logged_user.password = pw_hash
+            logged_user.save()
+            return redirect(f'/rvpad/users/{logged_user.id}')
+    else:
+        return redirect('/login_register')
