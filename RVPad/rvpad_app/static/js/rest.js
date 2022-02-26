@@ -15,7 +15,7 @@ $(document).ready(function () {
   //Location
 
   $("#location").keyup(function () {
-    value = $("#location").val();
+    value = $(this).val();
     if (value.length < 2) {
       $("#location_msg").html(
         "<p>Location should be at least 2 characters</p>"
@@ -30,7 +30,7 @@ $(document).ready(function () {
   //Description
 
   $("#desc").keyup(function () {
-    value = $("#desc").val();
+    value = $(this).val();
     if (value.length < 10) {
       $("#desc_msg").html(
         "<p>Description should be at least 10 characters</p>"

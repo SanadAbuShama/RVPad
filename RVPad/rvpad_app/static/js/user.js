@@ -14,7 +14,7 @@ $(document).ready(function () {
 
   // First Name
   $("#first_name").keyup(function () {
-    value = $("#first_name").val();
+    value = $(this).val();
     if (value.length < 2) {
       $("#first_name_msg").html(
         "<p>First name should be at least 2 characters</p>"
@@ -29,7 +29,7 @@ $(document).ready(function () {
   //Last name
 
   $("#last_name").keyup(function () {
-    value = $("#last_name").val();
+    value = $(this).val();
     if (value.length < 2) {
       $("#last_name_msg").html(
         "<p>Last name should be at least 2 characters</p>"
@@ -44,7 +44,7 @@ $(document).ready(function () {
   //Password
 
   $("#password").keyup(function () {
-    value = $("#password").val();
+    value = $(this).val();
     if (value.length < 8) {
       $("#password_msg").html(
         "<p>Password should be at least 8 characters</p>"
