@@ -134,7 +134,7 @@ def edit_restaurant(request, rest_id):
 
 def update_restaurant(request, rest_id):
     if 'userid' in request.session:
-        errors = Restaurant.objects.restaurant_validator(request.POST)
+        errors = Restaurant.objects.restaurant_update_validator(request.POST)
         if len(errors) > 0:
             for key, value in errors.items():
                 messages.error(request, value)
@@ -166,14 +166,20 @@ def edit_user(request, user_id):
 def update_user(request, user_id):
     if 'userid' in request.session:
         user = User.objects.get(id=user_id)
-        user.first_name = request.POST['first_name']
-        user.last_name = request.POST['last_name']
-        user.email = request.POST['email']
-        if 'image' in request.FILES:
-            user.image = request.FILES['image']
-        user.save()
+        errors = User.objects.update_user_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect(f'/rvpad/users/edit/{user.id}')
+        else:
+            user.first_name = request.POST['first_name']
+            user.last_name = request.POST['last_name']
+            user.email = request.POST['email']
+            if 'image' in request.FILES:
+                user.image = request.FILES['image']
+            user.save()
 
-        return redirect(f'/rvpad/users/{user_id}')
+            return redirect(f'/rvpad/users/{user_id}')
 
     else:
         return redirect('/login_register')
