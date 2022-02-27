@@ -39,6 +39,14 @@ This project is about a website that reviews restaurants based on users experien
 * Screen shots for our website:  
     * Landing Page![image](https://user-images.githubusercontent.com/96618482/155888380-2377b545-cb95-404c-9a41-4cb0454ecb65.png)
     * Login/Registration Page ![image](https://user-images.githubusercontent.com/96618482/155888671-bb729adc-264b-43b4-a59a-2b5efc627237.png)
+    * Home Page ![image](https://user-images.githubusercontent.com/96618482/155888793-c3d2aae3-61d7-42cd-a6c8-98fe00b66fd6.png)
+    * Add restaurant ![image](https://user-images.githubusercontent.com/96618482/155888842-eb1176a9-22d9-4022-b7e1-ef8a89e3d5db.png)
+    * User Profile page ![image](https://user-images.githubusercontent.com/96618482/155888939-feeedd01-7ad3-4910-babb-ceed320d425d.png)
+    * User edit information page ![image](https://user-images.githubusercontent.com/96618482/155889005-bce3ccd0-3ca1-4b07-86b7-2a564e378df4.png)
+
+
+
+
 
 
    
