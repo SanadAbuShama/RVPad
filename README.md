@@ -35,7 +35,10 @@ This project is about a website that reviews restaurants based on users experien
     * Users can serach for a restaurant using the name or location.
     * Users can view other users restaurants and reviews.
     * Users can view their proflie including the restaurants they added. 
-   
-  
+    
+* Screen shots for our website:  
+    * Landing Page![image](https://user-images.githubusercontent.com/96618482/155888380-2377b545-cb95-404c-9a41-4cb0454ecb65.png)
+    * Login/Registration Page ![image](https://user-images.githubusercontent.com/96618482/155888671-bb729adc-264b-43b4-a59a-2b5efc627237.png)
+
 
    
