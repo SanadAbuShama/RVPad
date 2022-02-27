@@ -45,6 +45,8 @@ This project is about a website that reviews restaurants based on users experien
     * User edit information page ![image](https://user-images.githubusercontent.com/96618482/155889005-bce3ccd0-3ca1-4b07-86b7-2a564e378df4.png)
     * User update password page ![image](https://user-images.githubusercontent.com/96618482/155889064-703416a6-ff6d-43bf-9ca1-cce3576b75a7.png)
     * Adding review page ![image](https://user-images.githubusercontent.com/96618482/155889104-10e86086-68f8-4743-a486-ba44605e6b5f.png)
+    * About Us page ![image](https://user-images.githubusercontent.com/96618482/155889175-e5b0cf57-0e76-4de3-a8f5-b6c81cad1bed.png)
+
     
 
 
