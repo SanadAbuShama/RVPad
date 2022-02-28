@@ -14,6 +14,9 @@ This project is about a website that reviews restaurants based on users experien
   * Bcrypt
   * Pillow
   * SQLite
+  * Git
+  * GitHub
+  * Trello
   
 
 # Two apps were used in the project:
