@@ -2,7 +2,7 @@
 
 from django.db import models
 from login_registration_app.models import User
-
+from cloudinary.models import CloudinaryField
 
 class RestaurantManager(models.Manager):
     def restaurant_validator(self, postData):
@@ -35,8 +35,7 @@ class Restaurant(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     location = models.CharField(max_length=255)
-    image = models.ImageField(
-        upload_to='images/', default='/static/imgs/no_image.png')
+    image = CloudinaryField('image')
     posted_by = models.ForeignKey(
         User, related_name="restaurants", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)

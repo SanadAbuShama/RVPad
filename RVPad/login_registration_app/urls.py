@@ -12,4 +12,4 @@ urlpatterns = [
     path('profile', views.profile),
     path('email', views.email),
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] 

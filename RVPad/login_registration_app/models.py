@@ -2,7 +2,7 @@
 import re
 import bcrypt
 from django.db import models
-
+from cloudinary.models import CloudinaryField
 
 class UserManager(models.Manager):
     def register_validator(self, postData):
@@ -91,8 +91,7 @@ class User(models.Model):
     last_name = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
     password = models.CharField(max_length=255)
-    image = models.ImageField(
-        upload_to='images/', default='/static/imgs/user.png')
+    image = CloudinaryField('image')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()

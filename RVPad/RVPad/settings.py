@@ -9,7 +9,9 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
-
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -31,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'cloudinary',
     'rvpad_app',
     'login_registration_app',
     'django.contrib.admin',
@@ -123,5 +126,4 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
-MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
