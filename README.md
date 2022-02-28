@@ -16,6 +16,7 @@ This project is about a website that reviews restaurants based on users experien
   * SQLite
   * Git
   * GitHub
+  * Cloudinary
   * Trello
   
 
